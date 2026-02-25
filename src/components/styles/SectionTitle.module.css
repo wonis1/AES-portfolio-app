@@ -1,0 +1,19 @@
+.title {
+  font-family: "Black Han Sans", "Noto Sans KR", sans-serif;
+  font-weight: 400;
+  font-size: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.line {
+  display: inline-block;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #cccccc;
+}
+
+.icon {
+    width: 32px;
+    height: 32px;
+}

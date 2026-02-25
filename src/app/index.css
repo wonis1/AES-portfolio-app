@@ -1,0 +1,31 @@
+@font-face {
+  font-family: "Noto Sans KR";
+  src: url("../assets/fonts/NotoSansKR/NotoSansKR-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Noto Sans KR";
+  src: url("../assets/fonts/NotoSansKR/NotoSansKR-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Black Han Sans";
+  src: url("../assets/fonts/BlackHanSans/BlackHanSans-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: "Noto Sans KR", system-ui, -apple-system, sans-serif;
+}
+
+.title, h1, h2 {
+  font-family: "Black Han Sans", "Noto Sans KR", sans-serif;
+  font-weight: 400;
+}
