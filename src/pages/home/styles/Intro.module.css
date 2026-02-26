@@ -1,0 +1,20 @@
+.intro,
+.intro .content {
+    box-sizing: border-box;
+}
+
+.intro {
+    background: linear-gradient(180deg, rgba(112, 93, 80, .8) 0, rgba(112, 93, 80, .8) 90%), url(../../../assets/images/masthead.jpg) 50% no-repeat;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 589px;
+}
+
+.intro .content {
+    width: auto;
+    max-width: 71.25rem;
+    height: 100%;
+    padding: 8.5rem 1.5rem 4rem;
+    margin: 0 auto;
+}

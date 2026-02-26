@@ -9,12 +9,12 @@ type Props = {
 
 const SkillTag = ({ title, defaultcolor = false, bgcolor, txtcolor }: Props) => {
     return (
-            <span
+            <li
                 className={styles.tag}
                 style={!defaultcolor ? { backgroundColor: bgcolor, color: txtcolor } : undefined}
             >
                 {title}
-            </span>
+            </li>
     );
 };
 

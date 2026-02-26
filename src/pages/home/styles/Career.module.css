@@ -1,0 +1,11 @@
+.career {
+  width: 100%;
+  background-color: #ececec;
+}
+
+.content {
+  width: 100%;
+  max-width: 71.25rem;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+}
