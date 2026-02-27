@@ -1,52 +1,43 @@
+import { useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
 import SkillTag from "../../../components/ui/SkillTag";
 import SectionTitle from "../../../components/ui/SectionTitle";
-import styles from "../styles/Skills.module.css"
+import styles from "../styles/Skills.module.css";
+import { getSkills, type SkillCategory } from "../../../api/skills";
 
-import languageIcon from "../../../assets/icons/language-icon.png"
-import frontendIcon from "../../../assets/icons/html-icon.png"
-import backendIcon from "../../../assets/icons/backend-icon.png"
-import devopsIcon from "../../../assets/icons/server-icon.png"
+import languageIcon from "../../../assets/icons/language-icon.png";
+import frontendIcon from "../../../assets/icons/html-icon.png";
+import backendIcon from "../../../assets/icons/backend-icon.png";
+import devopsIcon from "../../../assets/icons/server-icon.png";
 
 const Skills = () => {
-
-  const iconList = [
-    { icon: languageIcon, text: 'Language' },
-    { icon: frontendIcon, text: 'Frontend' },
-    { icon: backendIcon, text: "Backend" },
-    { icon: devopsIcon, text: 'DevOps' }
-  ]
-
-  const skillList = [
-    // Language
-    { category: 'Language', name: 'TypeScript' },
-    { category: 'Language', name: 'JavaScript' },
-    { category: 'Language', name: 'Python' },
-    { category: 'Language', name: 'Java' },
-    { category: 'Language', name: 'Kotlin' },
-    // Frontend
-    { category: 'Frontend', name: 'React' },
-    { category: 'Frontend', name: 'Next.js' },
-    { category: 'Frontend', name: 'Vite' },
-    { category: 'Frontend', name: 'Tailwind CSS' },
-    { category: 'Frontend', name: 'Sass' },
-    { category: 'Frontend', name: 'React Query' },
-    { category: 'Frontend', name: 'Zustand' },
-    // Backend
-    { category: 'Backend', name: 'Spring Boot' },
-    { category: 'Backend', name: 'Django' },
-    { category: 'Backend', name: 'Node.js' },
-    { category: 'Backend', name: 'Supabase' },
-    { category: 'Backend', name: 'Firebase' },
-    { category: 'Backend', name: 'PostgreSQL' },
-    // DevOps
-    { category: 'DevOps', name: 'Docker' },
-    { category: 'DevOps', name: 'Kubernetes' },
-    { category: 'DevOps', name: 'AWS ECS' },
-    { category: 'DevOps', name: 'AWS EC2' },
-    { category: 'DevOps', name: 'Redis' },
-    { category: 'DevOps', name: 'Vercel' },
+  const iconList: Array<{ icon: string; text: string; category: SkillCategory }> = [
+    { icon: languageIcon, text: "Language", category: "LANGUAGE" },
+    { icon: frontendIcon, text: "Frontend", category: "FRONTEND" },
+    { icon: backendIcon, text: "Backend", category: "BACKEND" },
+    { icon: devopsIcon, text: "DevOps", category: "DEV_OPS" },
   ];
 
+  const {
+    data: skills = [],
+    isPending,
+    error,
+  } = useQuery({
+    queryKey: ["skills"],
+    queryFn: getSkills,
+  });
+
+  const skillsByCategory = useMemo(() => {
+    return iconList.reduce<Record<SkillCategory, typeof skills>>((acc, item) => {
+      acc[item.category] = skills.filter((skill) => skill.category === item.category);
+      return acc;
+    }, {
+      BACKEND: [],
+      FRONTEND: [],
+      DEV_OPS: [],
+      LANGUAGE: [],
+    });
+  }, [skills]);
 
   return (
     <div className={styles.skills}>
@@ -54,17 +45,27 @@ const Skills = () => {
         <SectionTitle title="SKILLS" lineColor="#000000" />
         <div className={styles.box}>
 
-          {iconList.map((type) => (
+          {isPending && <p className={styles.empty}>스킬 데이터를 불러오는 중입니다.</p>}
+          {!isPending && error && <p className={styles.empty}>스킬 데이터를 불러오지 못했습니다.</p>}
+
+          {!isPending && !error && iconList.map((type) => (
             <div key={type.text} className={styles.row}>
               <div className={styles.types}>
                 <img className={styles.img} src={type.icon} alt={type.text} />
                 {type.text}
               </div>
               <ul className={styles.skillList}>
-                {skillList.filter((c) => c.category == type.text).map((e) => (
-                  <SkillTag key={`${type.text}-${e.name}`} title={e.name} defaultcolor = {true}/>
+                {skillsByCategory[type.category].map((skill) => (
+                  <SkillTag
+                    key={`${type.text}-${skill.id}`}
+                    title={skill.name}
+                    defaultcolor={!(skill.bgColor && skill.textColor)}
+                    bgcolor={skill.bgColor}
+                    txtcolor={skill.textColor}
+                    show={skill.show}
+                  />
                 ))}
-              </ul>  
+              </ul>
             </div>
           ))}
         </div>

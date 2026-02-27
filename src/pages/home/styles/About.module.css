@@ -16,3 +16,15 @@
     grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
     gap: 2.5rem;
 }
+
+@media (max-width: 900px) {
+    .content {
+        padding: 3rem 1rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .content {
+        padding: 2.5rem .75rem;
+    }
+}

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import styles from "../styles/Header.module.css";
 
 const navItems = [
@@ -8,11 +9,26 @@ const navItems = [
 ];
 
 const Header = () => {
+  const [isAtTop, setIsAtTop] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsAtTop(window.scrollY < 8);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} ${isAtTop ? styles.atTop : styles.scrolled}`}>
       <div className={styles.inner}>
         <a href="#intro" className={styles.brand}>
-          JAEWON
+          JAEWON's Portfolio
         </a>
         <nav aria-label="메인 메뉴">
           <ul className={styles.navList}>

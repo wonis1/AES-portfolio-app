@@ -1,7 +1,7 @@
 .projectsSection {
   max-width: 1120px;
-  margin: clamp(12px, 2vw, 20px) auto clamp(24px, 4vw, 40px);
-  padding: 0 clamp(12px, 2vw, 16px);
+  margin: 0 auto;
+  padding: 4rem clamp(12px, 2vw, 16px);
 }
 
 .heading {
@@ -62,20 +62,6 @@
   margin-bottom: clamp(20px, 2.8vw, 26px);
 }
 
-.filterChip {
-  border: 0;
-  border-radius: clamp(5px, 0.7vw, 6px);
-  background: #000;
-  color: #fff;
-  padding: clamp(6px, 1vw, 7px) clamp(12px, 2vw, 16px);
-  font-size: clamp(14px, 2.4vw, 24px);
-  cursor: pointer;
-}
-
-.filterChipActive {
-  background: #8d4dff;
-}
-
 .cardGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(435px, 435px));
@@ -92,7 +78,8 @@
 
 @media (max-width: 768px) {
   .projectsSection {
-    margin-top: 12px;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
   }
 
   .cardGrid {
@@ -101,5 +88,12 @@
     display: grid;
     grid-template-columns: repeat(auto-fit);
     justify-content: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .projectsSection {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
   }
 }

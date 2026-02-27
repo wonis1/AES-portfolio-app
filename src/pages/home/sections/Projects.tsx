@@ -1,40 +1,58 @@
 import { useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import ProjectCard from "../../../components/ui/ProjectCard";
 import styles from "../styles/Projects.module.css";
 import SectionTitle from "../../../components/ui/SectionTitle";
-
-const STACK_FILTERS = ["java", "spring", "react", "docker", "javaScript", "TypeScript", "spring Boot"];
-
-const mockProjects = Array.from({ length: 6 }, (_, index) => ({
-  id: index + 1,
-  title: "프로젝트 제목 (ex. IT 엘도라도 (블로그))",
-  intro: "ex. Notion API/DB와 연동하여 개발한 개인블로그",
-  descriptions: [
-    "프로젝트 설명(Ex. 티스토리 플랫폼에서의 불편함을 해소하고자 직접 개발)",
-    "프로젝트 설명(Ex. 티스토리 플랫폼에서의 불편함을 해소하고자 직접 개발)",
-    "프로젝트 설명(Ex. 티스토리 플랫폼에서의 불편함을 해소하고자 직접 개발)",
-  ],
-  memberCount: 3,
-  serviceLink: "https://example.com",
-  startDate: "2026-02-24",
-  endDate: "2026-03-04",
-  techStack: ["java", "javaScript", "postgrsql"],
-  highlighted: index === 1,
-}));
+import SkillTag from "../../../components/ui/SkillTag";
+import { getProjects } from "../../../api/projects";
+import { getSkills } from "../../../api/skills";
 
 const Projects = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [selectedStack, setSelectedStack] = useState<string | null>(null);
 
+  const {
+    data: projects = [],
+    isPending,
+    error,
+  } = useQuery({
+    queryKey: ["projects"],
+    queryFn: getProjects,
+  });
+
+  const { data: skills = [] } = useQuery({
+    queryKey: ["skills"],
+    queryFn: getSkills,
+  });
+
+  const skillColorMap = useMemo(() => {
+    return skills.reduce<Record<string, { bgColor: string; textColor: string }>>((acc, skill) => {
+      acc[skill.name.toLowerCase()] = {
+        bgColor: skill.bgColor,
+        textColor: skill.textColor,
+      };
+      return acc;
+    }, {});
+  }, [skills]);
+
+  const stackFilters = useMemo(() => {
+    const stackSet = new Set<string>();
+    projects.forEach((project) => {
+      project.techStack.forEach((stack) => stackSet.add(stack));
+    });
+
+    return Array.from(stackSet);
+  }, [projects]);
+
   const filteredProjects = useMemo(() => {
-    return mockProjects.filter((project) => {
+    return projects.filter((project) => {
       const query = searchKeyword.trim().toLowerCase();
       const fullText = `${project.title} ${project.intro} ${project.descriptions.join(" ")} ${project.techStack.join(" ")}`.toLowerCase();
       const matchesSearch = query.length === 0 || fullText.includes(query);
       const matchesStack = selectedStack === null || project.techStack.some((stack) => stack.toLowerCase() === selectedStack.toLowerCase());
       return matchesSearch && matchesStack;
     });
-  }, [searchKeyword, selectedStack]);
+  }, [projects, searchKeyword, selectedStack]);
 
   return (
     <section id="projects" className={styles.projectsSection}>
@@ -53,23 +71,30 @@ const Projects = () => {
       </div>
 
       <div className={styles.filterRow}>
-        {STACK_FILTERS.map((stack) => {
+        {stackFilters.map((stack) => {
           const isActive = selectedStack === stack;
+          const skillColor = skillColorMap[stack.toLowerCase()];
+          const hasCustomColor = Boolean(skillColor?.bgColor && skillColor?.textColor);
           return (
-            <button
+            <SkillTag
               key={stack}
-              type="button"
-              className={`${styles.filterChip} ${isActive ? styles.filterChipActive : ""}`}
+              as="button"
+              title={stack}
+              defaultcolor={!hasCustomColor}
+              bgcolor={skillColor?.bgColor}
+              txtcolor={skillColor?.textColor}
+              active={isActive}
               onClick={() => setSelectedStack((current) => (current === stack ? null : stack))}
-            >
-              {stack}
-            </button>
+            />
           );
         })}
       </div>
 
+      {isPending && <p className={styles.empty}>프로젝트 데이터를 불러오는 중입니다.</p>}
+      {!isPending && error && <p className={styles.empty}>프로젝트 데이터를 불러오지 못했습니다.</p>}
+
       <div className={styles.cardGrid}>
-        {filteredProjects.map((project) => (
+        {!isPending && !error && filteredProjects.map((project) => (
           <ProjectCard
             key={project.id}
             title={project.title}
@@ -80,12 +105,13 @@ const Projects = () => {
             startDate={project.startDate}
             endDate={project.endDate}
             techStack={project.techStack}
-            highlighted={project.highlighted}
+            skillColorMap={skillColorMap}
+            detailPath="/projectDetail"
           />
         ))}
       </div>
 
-      {filteredProjects.length === 0 && <p className={styles.empty}>검색 조건에 맞는 프로젝트가 없습니다.</p>}
+      {!isPending && !error && filteredProjects.length === 0 && <p className={styles.empty}>검색 조건에 맞는 프로젝트가 없습니다.</p>}
     </section>
   );
 };

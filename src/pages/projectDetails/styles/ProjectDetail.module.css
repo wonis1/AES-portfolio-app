@@ -1,0 +1,208 @@
+.page {
+  min-height: 100vh;
+  background: #f4f4f4;
+  padding: 16px;
+}
+
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+  border: 1px solid #dbdbdb;
+  background: #fff;
+}
+
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 18px;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.brandRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.logo {
+  font-size: 8px;
+  font-weight: 700;
+  color: #002c7e;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.titleWrap {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  min-width: 0;
+}
+
+.title {
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.subtitle {
+  color: #7b7b7b;
+  font-size: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.backButton {
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.content {
+  padding: 20px 38px 40px;
+}
+
+.sectionLabel {
+  font-size: 27px;
+  font-family: "Black Han Sans", "Noto Sans KR", sans-serif;
+  color: #bebebe;
+  margin-bottom: 10px;
+}
+
+.mdPanel {
+  border: 1px solid #969696;
+  min-height: 760px;
+  background: #fff;
+}
+
+.mdHeader {
+  border-left: 10px solid #000;
+  padding: 16px 18px;
+}
+
+.mdTitle {
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.categoryTag {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: #000;
+  color: #fff;
+  font-size: 9px;
+}
+
+.mdDate {
+  margin-top: 8px;
+  font-size: 9px;
+  color: #8a8a8a;
+}
+
+.mdBody {
+  padding: 20px;
+  color: #777;
+  font-size: 11px;
+  min-height: 660px;
+}
+
+.commentTitle {
+  font-size: 27px;
+  font-family: "Black Han Sans", "Noto Sans KR", sans-serif;
+  color: #bebebe;
+  margin: 10px 0 8px;
+}
+
+.commentPanel {
+  border: 1px solid #e5e5e5;
+  background: #fff;
+}
+
+.commentMeta {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 12px;
+  border-bottom: 1px solid #ececec;
+  font-size: 16px;
+}
+
+.commentEmpty {
+  margin: 0;
+  padding: 18px 12px;
+  border-bottom: 1px solid #ececec;
+  color: #767676;
+  font-size: 16px;
+}
+
+.nickname {
+  padding: 10px 12px;
+  border-bottom: 1px solid #ececec;
+  color: #989898;
+  font-size: 16px;
+}
+
+.commentInput {
+  width: 100%;
+  min-height: 84px;
+  border: none;
+  resize: vertical;
+  padding: 14px 12px;
+  background: #efefef;
+  color: #555;
+  font-size: 16px;
+}
+
+.commentInput:focus {
+  outline: none;
+}
+
+@media (max-width: 920px) {
+  .content {
+    padding: 16px;
+  }
+
+  .title {
+    font-size: 15px;
+  }
+
+  .subtitle {
+    font-size: 9px;
+  }
+
+  .sectionLabel,
+  .commentTitle {
+    font-size: 20px;
+  }
+
+  .mdTitle {
+    font-size: 16px;
+  }
+
+  .mdPanel {
+    min-height: 480px;
+  }
+
+  .mdBody {
+    min-height: 360px;
+    font-size: 9px;
+  }
+
+  .commentMeta,
+  .commentEmpty,
+  .nickname,
+  .commentInput {
+    font-size: 11px;
+  }
+}

@@ -10,11 +10,16 @@
   min-height: 350px;
 }
 
+.clickableCard {
+  cursor: pointer;
+}
+
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  
 }
 
 .icon,
@@ -135,6 +140,7 @@
 .techItem {
   background-color: black;
   color: white;
+  border: 1px solid transparent;
   padding: 6px 12px;
   border-radius: 7px;
   font-size: clamp(12px, 1.1vw, 14px);

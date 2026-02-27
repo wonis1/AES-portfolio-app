@@ -1,4 +1,6 @@
 import styles from "../styles/ProjectCard.module.css";
+import { useNavigate } from "react-router-dom";
+import type { KeyboardEvent } from "react";
 
 type Props = {
   icon?: string;
@@ -11,6 +13,8 @@ type Props = {
   serviceLink?: string;
   memberCount?: number;
   techStack?: string[];
+  skillColorMap?: Record<string, { bgColor: string; textColor: string }>;
+  detailPath?: string;
 };
 
 const ProjectCard = ({
@@ -23,9 +27,38 @@ const ProjectCard = ({
   serviceLink,
   memberCount,
   techStack = [],
+  skillColorMap = {},
+  detailPath,
 }: Props) => {
+  const navigate = useNavigate();
+  const isClickable = Boolean(detailPath);
+
+  const handleCardClick = () => {
+    if (detailPath) {
+      navigate(detailPath);
+    }
+  };
+
+  const handleCardKeyDown = (event: KeyboardEvent<HTMLElement>) => {
+    if (!isClickable) {
+      return;
+    }
+
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      handleCardClick();
+    }
+  };
+
   return (
-    <article className={styles.projectCard}>
+    <article
+      className={`${styles.projectCard} ${isClickable ? styles.clickableCard : ""}`}
+      onClick={isClickable ? handleCardClick : undefined}
+      onKeyDown={handleCardKeyDown}
+      role={isClickable ? "link" : undefined}
+      tabIndex={isClickable ? 0 : undefined}
+      aria-label={isClickable ? `${title} 상세 페이지로 이동` : undefined}
+    >
       <div className={styles.header}>
         {icon ? (
           <img src={icon} alt="project icon" className={styles.icon} />
@@ -40,7 +73,14 @@ const ProjectCard = ({
       <h2 className={styles.title}>{title}</h2>
 
       {serviceLink && (
-        <a href={serviceLink} target="_blank" rel="noreferrer" className={styles.link}>
+        <a
+          href={serviceLink}
+          target="_blank"
+          rel="noreferrer"
+          className={styles.link}
+          onClick={(event) => event.stopPropagation()}
+          onKeyDown={(event) => event.stopPropagation()}
+        >
           프로젝트에 연결된 실제링크
         </a>
       )}
@@ -66,11 +106,18 @@ const ProjectCard = ({
         <h3 className={styles.techTitle}>기술 스택</h3>
         <div className={styles.techDivider} />
         <div className={styles.techList}>
-          {techStack.map((tech, index) => (
-            <span key={`${tech}-${index}`} className={styles.techItem}>
-              {tech}
-            </span>
-          ))}
+          {techStack.map((tech, index) => {
+            const skillColor = skillColorMap[tech.toLowerCase()];
+            const tagStyle = skillColor?.bgColor && skillColor?.textColor
+              ? { backgroundColor: skillColor.bgColor, color: skillColor.textColor, borderColor: "rgba(0, 0, 0, 0.2)" }
+              : undefined;
+
+            return (
+              <span key={`${tech}-${index}`} className={styles.techItem} style={tagStyle}>
+                {tech}
+              </span>
+            );
+          })}
         </div>
       </section>
 

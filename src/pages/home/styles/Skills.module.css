@@ -50,6 +50,11 @@
     margin: 0;
 }
 
+.empty {
+    margin: 0;
+    font-weight: 600;
+}
+
 @media (max-width: 900px) {
     .skills {
         padding: 3rem 1rem;

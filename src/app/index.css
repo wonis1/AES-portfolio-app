@@ -98,5 +98,11 @@ select:focus-visible {
 }
 
 section[id] {
-  scroll-margin-top: 4rem;
+  scroll-margin-top: 4.5rem;
+}
+
+@media (max-width: 768px) {
+  section[id] {
+    scroll-margin-top: 6.5rem;
+  }
 }

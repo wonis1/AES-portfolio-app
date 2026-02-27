@@ -9,3 +9,15 @@
   margin: 0 auto;
   padding: 4rem 1.5rem;
 }
+
+@media (max-width: 900px) {
+  .content {
+    padding: 3rem 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .content {
+    padding: 2.5rem 0.75rem;
+  }
+}
