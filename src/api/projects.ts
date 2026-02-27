@@ -2,6 +2,7 @@ import { supabase } from "./supabase";
 
 export type ProjectListItem = {
   id: number;
+  slug: string;
   title: string;
   intro: string;
   descriptions: string[];
@@ -14,6 +15,7 @@ export type ProjectListItem = {
 
 type ProjectRow = {
   id: number;
+  slug: string | null;
   title: string;
   start_date: string | null;
   end_date: string | null;
@@ -31,6 +33,7 @@ export const getProjects = async (): Promise<ProjectListItem[]> => {
     .select(
       `
       id,
+      slug,
       title,
       start_date,
       end_date,
@@ -66,6 +69,7 @@ export const getProjects = async (): Promise<ProjectListItem[]> => {
 
     return {
       id: row.id,
+      slug: row.slug ?? "",
       title: row.title,
       intro: summaryList[0] ?? "",
       descriptions: summaryList,

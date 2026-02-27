@@ -4,6 +4,7 @@
 }
 
 .intro {
+    position: relative;
     background: linear-gradient(180deg, rgba(112, 93, 80, .8) 0, rgba(112, 93, 80, .8) 90%), url(../../../assets/images/masthead.jpg) 50% no-repeat;
     background-size: cover;
     background-repeat: no-repeat;
@@ -17,4 +18,107 @@
     height: 100%;
     padding: 8.5rem 1.5rem 4rem;
     margin: 0 auto;
+}
+
+.introLine {
+    width: 3.25rem;
+    margin: 1.5rem auto;
+    border-top: .2rem solid #f4623a;
+    
+    opacity: 1;
+}
+
+.introText {
+    margin: 3.25rem auto;
+    max-width: 760px;
+    color: hsla(0, 0%, 100%, .75);
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.55;
+    text-align: center;
+}
+
+.scrollHint {
+    position: absolute;
+    left: 50%;
+    bottom: 1.5rem;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    color: rgba(255, 255, 255, 0.88);
+    text-decoration: none;
+    animation: floatY 1.5s ease-in-out infinite;
+}
+
+.scrollText {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+}
+
+.scrollIcon {
+    width: 1.4rem;
+    height: 2.1rem;
+    border: 2px solid rgba(255, 255, 255, 0.85);
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    padding-top: 0.28rem;
+}
+
+.scrollDot {
+    width: 0.24rem;
+    height: 0.24rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.95);
+    animation: wheelDown 1.5s ease-in-out infinite;
+}
+
+@keyframes floatY {
+    0%,
+    100% {
+        transform: translate(-50%, 0);
+    }
+    50% {
+        transform: translate(-50%, 6px);
+    }
+}
+
+@keyframes wheelDown {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    75% {
+        transform: translateY(0.62rem);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .intro .content {
+        padding-top: 7.5rem;
+    }
+
+    .introText {
+        margin-top: 1rem;
+        font-size: 0.92rem;
+    }
+
+    .scrollHint {
+        bottom: 1rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .scrollHint,
+    .scrollDot {
+        animation: none;
+    }
 }

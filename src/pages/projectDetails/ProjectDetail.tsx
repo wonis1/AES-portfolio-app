@@ -1,8 +1,27 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import ReactMarkdown from "react-markdown";
 import styles from "./styles/ProjectDetail.module.css";
+import { getProjectDetailBySlug } from "../../api/projectDetails";
+import NotFound from "../notFound/NotFound";
 
 const ProjectDetail = () => {
   const navigate = useNavigate();
+  const { slug } = useParams();
+
+  const {
+    data: projectDetail,
+    isPending,
+    error,
+  } = useQuery({
+    queryKey: ["project-detail", slug],
+    queryFn: () => getProjectDetailBySlug(slug ?? ""),
+    enabled: Boolean(slug),
+  });
+
+  if (!slug || error) {
+    return <NotFound />;
+  }
 
   return (
     <main className={styles.page}>
@@ -26,15 +45,18 @@ const ProjectDetail = () => {
         </header>
 
         <section className={styles.content}>
+          <h2 className={styles.sectionLabel}>md 파일</h2>
           <article className={styles.mdPanel}>
             <div className={styles.mdHeader}>
-              <h3 className={styles.mdTitle}>양귀자 | 원미동 사람들 中 &lt;한계령&gt;</h3>
-              <span className={styles.categoryTag}>독서</span>
-              <p className={styles.mdDate}>2025-01-29 15:14</p>
+              <h3 className={styles.mdTitle}>{projectDetail?.title ?? "프로젝트 문서"}</h3>
             </div>
-            <div className={styles.mdBody}>여기에 md 파일 내용이 표시될 영역입니다.</div>
+            <div className={styles.mdBody}>
+              {isPending && <p>마크다운 파일을 불러오는 중입니다.</p>}
+              {!isPending && projectDetail && <ReactMarkdown>{projectDetail.markdown}</ReactMarkdown>}
+            </div>
           </article>
 
+          <h2 className={styles.commentTitle}>댓글</h2>
           <section className={styles.commentPanel}>
             <div className={styles.commentMeta}>
               <span>댓글 0개</span>

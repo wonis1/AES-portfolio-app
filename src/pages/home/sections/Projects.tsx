@@ -106,7 +106,7 @@ const Projects = () => {
             endDate={project.endDate}
             techStack={project.techStack}
             skillColorMap={skillColorMap}
-            detailPath="/projectDetail"
+            detailPath={project.slug ? `/projectDetail/${project.slug}` : undefined}
           />
         ))}
       </div>
