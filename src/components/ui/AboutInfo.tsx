@@ -9,11 +9,12 @@ type Props = {
 
 const AboutInfo = ({ icon, title, content, href }: Props) => {
   const imageStyle = icon ? { backgroundImage: `url(${icon})` } : undefined;
+  const isMultiline = content.includes("\n");
 
   return (
     <div className={styles.infoWrap}>
       <div className={styles.img} style={imageStyle} />
-      <div className={styles.field}>
+      <div className={`${styles.field} ${isMultiline ? styles.fieldCompact : ""}`}>
         <span className={styles.label}>{title}</span>
         {href ? (
           <a className={styles.valueLink} href={href} target="_blank" rel="noreferrer">
