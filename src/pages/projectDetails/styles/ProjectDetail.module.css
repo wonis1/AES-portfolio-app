@@ -1,4 +1,4 @@
-.page {
+﻿.page {
   min-height: 100vh;
   background: #f4f4f4;
   padding: 16px;
@@ -27,12 +27,17 @@
   min-width: 0;
 }
 
-.logo {
-  font-size: 8px;
+.logoLink {
+  font-size: 11px;
   font-weight: 700;
   color: #002c7e;
   letter-spacing: -0.02em;
   white-space: nowrap;
+  text-decoration: none;
+}
+
+.logoLink:hover {
+  opacity: 0.8;
 }
 
 .titleWrap {
@@ -51,7 +56,7 @@
 
 .subtitle {
   color: #7b7b7b;
-  font-size: 10px;
+  font-size: 12px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -60,71 +65,51 @@
 .backButton {
   border: none;
   background: transparent;
-  font-size: 16px;
+  font-size: 32px;
   font-weight: 700;
   line-height: 1;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .content {
   padding: 20px 38px 40px;
 }
 
-.sectionLabel {
-  font-size: 27px;
-  font-family: "Black Han Sans", "Noto Sans KR", sans-serif;
-  color: #bebebe;
-  margin-bottom: 10px;
-}
-
 .mdPanel {
   border: 1px solid #969696;
-  min-height: 760px;
+  min-height: 520px;
   background: #fff;
 }
 
 .mdHeader {
   border-left: 10px solid #000;
-  padding: 16px 18px;
+  padding: 10px 18px;
+  background-color: #f5f7fc;
 }
 
 .mdTitle {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin: 0;
   font-size: 21px;
   font-weight: 700;
   line-height: 1.2;
 }
 
-.categoryTag {
-  display: inline-block;
-  margin-top: 8px;
-  padding: 2px 8px;
-  border-radius: 4px;
-  background: #000;
-  color: #fff;
-  font-size: 9px;
-}
-
-.mdDate {
-  margin-top: 8px;
-  font-size: 9px;
-  color: #8a8a8a;
-}
-
 .mdBody {
   padding: 20px;
-  color: #777;
-  font-size: 11px;
-  min-height: 660px;
-}
-
-.commentTitle {
-  font-size: 27px;
-  font-family: "Black Han Sans", "Noto Sans KR", sans-serif;
-  color: #bebebe;
-  margin: 10px 0 8px;
+  color: #444;
+  font-size: 14px;
+  line-height: 1.7;
 }
 
 .commentPanel {
+  margin-top: 20px;
   border: 1px solid #e5e5e5;
   background: #fff;
 }
@@ -136,6 +121,7 @@
   padding: 12px;
   border-bottom: 1px solid #ececec;
   font-size: 16px;
+  font-weight: 600;
 }
 
 .commentEmpty {
@@ -143,29 +129,138 @@
   padding: 18px 12px;
   border-bottom: 1px solid #ececec;
   color: #767676;
-  font-size: 16px;
+  font-size: 14px;
 }
 
-.nickname {
-  padding: 10px 12px;
+.commentList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.commentItem {
+  padding: 14px 12px;
   border-bottom: 1px solid #ececec;
-  color: #989898;
-  font-size: 16px;
+}
+
+.commentItemHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.commentAuthor {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.commentTime {
+  font-size: 12px;
+  color: #777;
+}
+
+.commentText {
+  margin: 8px 0 0;
+  font-size: 14px;
+  color: #303030;
+  white-space: pre-wrap;
+}
+
+.commentActions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.actionButton {
+  border: 1px solid #d8d8d8;
+  background: #fff;
+  color: #333;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.actionButton:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.commentError {
+  margin: 0;
+  padding: 10px 12px;
+  color: #cc2b2b;
+  font-size: 13px;
+  border-bottom: 1px solid #ececec;
+}
+
+.commentForm {
+  padding: 12px;
+  background: #f7f7f7;
+}
+
+.fieldLabel {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #525252;
+}
+
+.nicknameInput,
+.commentInput {
+  width: 100%;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  padding: 10px;
+  background: #fff;
+  color: #333;
+  font-size: 14px;
+  margin-bottom: 12px;
 }
 
 .commentInput {
-  width: 100%;
-  min-height: 84px;
-  border: none;
+  min-height: 100px;
   resize: vertical;
-  padding: 14px 12px;
-  background: #efefef;
-  color: #555;
-  font-size: 16px;
 }
 
+.nicknameInput:focus,
 .commentInput:focus {
   outline: none;
+  border-color: #8e8e8e;
+}
+
+.formActions {
+  display: flex;
+  gap: 8px;
+}
+
+.submitButton,
+.cancelButton {
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.submitButton {
+  background: #1f2937;
+  color: #fff;
+}
+
+.cancelButton {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.submitButton:disabled,
+.cancelButton:disabled {
+  opacity: 0.5;
+  cursor: default;
 }
 
 @media (max-width: 920px) {
@@ -174,35 +269,18 @@
   }
 
   .title {
-    font-size: 15px;
+    font-size: 16px;
   }
 
   .subtitle {
-    font-size: 9px;
-  }
-
-  .sectionLabel,
-  .commentTitle {
-    font-size: 20px;
+    font-size: 10px;
   }
 
   .mdTitle {
     font-size: 16px;
   }
 
-  .mdPanel {
-    min-height: 480px;
-  }
-
   .mdBody {
-    min-height: 360px;
-    font-size: 9px;
-  }
-
-  .commentMeta,
-  .commentEmpty,
-  .nickname,
-  .commentInput {
-    font-size: 11px;
+    font-size: 13px;
   }
 }

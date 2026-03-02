@@ -1,21 +1,32 @@
 import { supabase } from "./supabase";
 
 export type ProjectDetail = {
+  id: number;
   title: string;
   slug: string;
   markdown: string;
 };
 
 type ProjectDetailRow = {
+  id: number;
   title: string;
   slug: string;
-  md_url: string | null;
+};
+
+const markdownModules = import.meta.glob("../assets/md/*.md", {
+  query: "?raw",
+  import: "default",
+}) as Record<string, () => Promise<string>>;
+
+const getMarkdownLoaderBySlug = (slug: string): (() => Promise<string>) | undefined => {
+  const normalizedSlug = slug.trim().toLowerCase();
+  return markdownModules[`../assets/md/${normalizedSlug}.md`];
 };
 
 export const getProjectDetailBySlug = async (slug: string): Promise<ProjectDetail> => {
   const { data, error } = await supabase
     .from("projects")
-    .select("title, slug, md_url")
+    .select("id, title, slug")
     .eq("slug", slug)
     .maybeSingle();
 
@@ -25,19 +36,20 @@ export const getProjectDetailBySlug = async (slug: string): Promise<ProjectDetai
 
   const row = data as ProjectDetailRow | null;
 
-  if (!row || !row.md_url) {
+  if (!row) {
     throw new Error("PROJECT_NOT_FOUND");
   }
 
-  const mdResponse = await fetch(row.md_url);
+  const markdownLoader = getMarkdownLoaderBySlug(row.slug);
 
-  if (!mdResponse.ok) {
-    throw new Error("MARKDOWN_FETCH_FAILED");
+  if (!markdownLoader) {
+    throw new Error("MARKDOWN_NOT_FOUND");
   }
 
-  const markdown = await mdResponse.text();
+  const markdown = await markdownLoader();
 
   return {
+    id: row.id,
     title: row.title,
     slug: row.slug,
     markdown,
