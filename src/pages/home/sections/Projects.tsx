@@ -67,7 +67,6 @@ const Projects = () => {
           placeholder="검색어를 입력해 보세요."
           aria-label="프로젝트 검색"
         />
-        <span className={styles.searchIcon}>⌕</span>
       </div>
 
       <div className={styles.filterRow}>
@@ -97,6 +96,7 @@ const Projects = () => {
         {!isPending && !error && filteredProjects.map((project) => (
           <ProjectCard
             key={project.id}
+            icon={project.icon}
             title={project.title}
             intro={project.intro}
             descriptions={project.descriptions}

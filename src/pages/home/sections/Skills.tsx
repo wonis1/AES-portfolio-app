@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import SkillTag from "../../../components/ui/SkillTag";
 import SectionTitle from "../../../components/ui/SectionTitle";
@@ -10,14 +9,14 @@ import frontendIcon from "../../../assets/icons/html-icon.png";
 import backendIcon from "../../../assets/icons/backend-icon.png";
 import devopsIcon from "../../../assets/icons/server-icon.png";
 
-const Skills = () => {
-  const iconList: Array<{ icon: string; text: string; category: SkillCategory }> = [
-    { icon: languageIcon, text: "Language", category: "LANGUAGE" },
-    { icon: frontendIcon, text: "Frontend", category: "FRONTEND" },
-    { icon: backendIcon, text: "Backend", category: "BACKEND" },
-    { icon: devopsIcon, text: "DevOps", category: "DEV_OPS" },
-  ];
+const iconList: Array<{ icon: string; text: string; category: SkillCategory }> = [
+  { icon: languageIcon, text: "Language", category: "LANGUAGE" },
+  { icon: frontendIcon, text: "Frontend", category: "FRONTEND" },
+  { icon: backendIcon, text: "Backend", category: "BACKEND" },
+  { icon: devopsIcon, text: "DevOps", category: "DEV_OPS" },
+];
 
+const Skills = () => {
   const {
     data: skills = [],
     isPending,
@@ -27,17 +26,15 @@ const Skills = () => {
     queryFn: getSkills,
   });
 
-  const skillsByCategory = useMemo(() => {
-    return iconList.reduce<Record<SkillCategory, typeof skills>>((acc, item) => {
-      acc[item.category] = skills.filter((skill) => skill.category === item.category);
-      return acc;
-    }, {
-      BACKEND: [],
-      FRONTEND: [],
-      DEV_OPS: [],
-      LANGUAGE: [],
-    });
-  }, [skills]);
+  const skillsByCategory = iconList.reduce<Record<SkillCategory, typeof skills>>((acc, item) => {
+    acc[item.category] = skills.filter((skill) => skill.category === item.category);
+    return acc;
+  }, {
+    BACKEND: [],
+    FRONTEND: [],
+    DEV_OPS: [],
+    LANGUAGE: [],
+  });
 
   return (
     <div className={styles.skills}>

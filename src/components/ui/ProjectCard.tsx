@@ -11,7 +11,7 @@ type Props = {
   startDate?: string;
   endDate?: string;
   serviceLink?: string;
-  memberCount?: number;
+  memberCount?: string;
   techStack?: string[];
   skillColorMap?: Record<string, { bgColor: string; textColor: string }>;
   detailPath?: string;
@@ -66,7 +66,7 @@ const ProjectCard = ({
           <div className={styles.iconPlaceholder}>프로젝트 아이콘</div>
         )}
         {memberCount !== undefined && (
-          <div className={styles.memberTag}>{memberCount}인 프로젝트</div>
+          <div className={styles.memberTag}>{memberCount} 프로젝트</div>
         )}
       </div>
 
@@ -81,7 +81,7 @@ const ProjectCard = ({
           onClick={(event) => event.stopPropagation()}
           onKeyDown={(event) => event.stopPropagation()}
         >
-          프로젝트에 연결된 실제링크
+          서비스 페이지 바로가기
         </a>
       )}
 
@@ -89,7 +89,7 @@ const ProjectCard = ({
 
       <section className={styles.introSection}>
         <h3 className={styles.sectionHeading}>
-          프로젝트 한줄 소개 {intro && <span className={styles.sectionSubText}>({intro})</span>}
+          {intro && <span className={styles.sectionSubText}>({intro})</span>}
         </h3>
         {descriptions.length > 0 && (
           <ul className={styles.descriptionList}>
