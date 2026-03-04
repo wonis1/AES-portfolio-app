@@ -27,7 +27,7 @@ insert into public.projects (
 ) values (
   'My New Project',
   'my-new-project',
-  date '2025-01-01',
+  date '2025-02-24',
   date '2025-03-01',
   null,
   1,

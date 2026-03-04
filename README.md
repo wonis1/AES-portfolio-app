@@ -1,73 +1,69 @@
-# React + TypeScript + Vite
+# AES Portfolio App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+AutoEver 1차 프로젝트 포트폴리오 웹앱입니다.  
+프로젝트 목록/상세 조회와 댓글 CRUD 기능을 제공합니다.
 
-Currently, two official plugins are available:
+## Release
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Current Release: `v1.0.0`
+- Release Date: `2026-03-04`
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19 + TypeScript + Vite
+- React Router
+- TanStack Query
+- Supabase (DB/API)
 
-## Expanding the ESLint configuration
+## Main Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- 홈 화면 섹션 구성: Intro / About / Skills / Projects / Career
+- 프로젝트 카드 목록 조회
+- 프로젝트 상세 문서(Markdown) 렌더링
+- 댓글 등록/수정/삭제/조회
+- 존재하지 않는 경로/프로젝트 Not Found 처리
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Environment Variables
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+`.env` 파일에 아래 값을 설정해야 합니다.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```env
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
+
+기본 개발 서버: `http://localhost:5173`
+
+## Build
+
+```bash
+npm run build
+npm run preview
+```
+
+## Project Structure
+
+```text
+src/
+  api/                 # Supabase 연동 및 데이터 조회/수정
+  app/                 # 앱 엔트리, 전역 스타일, 라우팅 루트
+  assets/              # 이미지, 아이콘, 폰트, 프로젝트 상세 markdown
+  components/
+    ui/                # 재사용 UI 컴포넌트
+    styles/            # UI 컴포넌트 스타일
+  pages/
+    home/              # 메인 페이지
+    projectDetails/    # 프로젝트 상세 + 댓글
+    notFound/          # 404 페이지
+```
+
+## Data Onboarding
+
+새 프로젝트 데이터 추가는 [PROJECT_ONBOARDING.md](./PROJECT_ONBOARDING.md)를 따릅니다.

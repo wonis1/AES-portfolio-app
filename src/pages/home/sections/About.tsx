@@ -18,7 +18,7 @@ const About = () => {
     { icon: phoneIcon, title: "연락처", content: "010-5671-2585" },
     { icon: mailIcon, title: "이메일", content: "wjdwo2808@email.com" },
     { icon: penIcon, title: "학력", content: "선문대학교\n산업경영공학과 졸업 (2023)" },
-    { icon: githubIcon, title: "GitHub", content: "README.md", href: "https://github.com/your-id" },
+    { icon: githubIcon, title: "GitHub", content: "README.md", href: "https://github.com/wonis1" },
     { icon: notionIcon, title: "Notion", content: "경력기술상세", href: "https://www.notion.so/your-page" },
   ];
 
